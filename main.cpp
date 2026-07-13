@@ -3,8 +3,6 @@
 #include <iostream>
 #include <memory>
 
-std::unique_ptr<Unit> playerUnit;
-
 int main() {
     // setup
     []() {
@@ -15,7 +13,6 @@ int main() {
         SetTargetFPS(maxFPS);
     }();
 
-    playerUnit = makeUnit("Goblin", 20, 100);
     while (!WindowShouldClose()) {
         gameLogic();
         renderScreen();

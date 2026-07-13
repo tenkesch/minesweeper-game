@@ -4,7 +4,7 @@ TARGET := gameDev
 SRCS := main.cpp \
         includes/game.render.cpp \
         includes/game.logic.cpp \
-        includes/game.structures.cpp
+        includes/MS.makeMap.script.cpp
 
 BUILD_DIR := build
 OBJS := $(addprefix $(BUILD_DIR)/,$(SRCS:.cpp=.o))
