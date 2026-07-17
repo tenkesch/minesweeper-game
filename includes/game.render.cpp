@@ -1,11 +1,6 @@
 #include "MS.map.hpp"
 #include "raylib.h"
 
-#define SPOT_SIZE 13
-#define PADDING 2
-#define MAP_BEGIN_X 20
-#define MAP_BEGIN_Y 40
-
 void renderMap();
 
 void renderScreen() {
@@ -19,14 +14,16 @@ void renderScreen() {
 }
 
 void renderMap() {
-    for (int i = 0; i < HEIGHT; i++) {
-        for (int j = 0; j < WIDTH; j++) {
+    for (int i = 0; i < MAP_ROW_COUNT; i++) {
+        for (int j = 0; j < MAP_COL_COUNT; j++) {
+            const auto [x, y, width, height] = Field[i][j].button_;
+
             if (!Field[i][j].isRevealed_) {
+
                 DrawRectangle(
-                    MAP_BEGIN_X + SPOT_SIZE + PADDING * SPOT_SIZE * j,
-                    MAP_BEGIN_Y + SPOT_SIZE + PADDING * SPOT_SIZE * i,
-                    SPOT_SIZE, SPOT_SIZE,
-                    ORANGE); // TODO: change Color for how close it is to bomb
+                    x, y, width, height,
+                    Field[i][j].getColorByMineCount()); // TODO Make Field[]
+                                                        // contain Rectangle
                 continue;
             }
 

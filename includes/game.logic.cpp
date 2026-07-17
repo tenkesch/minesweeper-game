@@ -3,4 +3,8 @@
 #include <iostream>
 // box - type bomb, flag, normal
 
-void gameLogic() {}
+void gameLogic() {
+    if (IsKeyPressed(MOUSE_BUTTON_LEFT)) {
+        Vector2 mousePosition = GetMousePosition();
+    }
+}

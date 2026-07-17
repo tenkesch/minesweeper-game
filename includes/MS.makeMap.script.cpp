@@ -8,11 +8,11 @@
 using namespace std;
 
 // public across all files with map.hpp
-Slot Field[HEIGHT][WIDTH] = {};
+Slot Field[MAP_ROW_COUNT][MAP_COL_COUNT] = {};
 DiffOptions Difficulty;
 
 bool inBorders(int i, int j) {
-    return (i >= 0 && i < HEIGHT) && (j >= 0 && j < WIDTH);
+    return (i >= 0 && i < MAP_ROW_COUNT) && (j >= 0 && j < MAP_COL_COUNT);
 }
 
 void countMines(int i, int j) {
@@ -24,8 +24,8 @@ void countMines(int i, int j) {
 
 void printMap() {
     cout << endl;
-    for (int i = 0; i < HEIGHT; i++) {
-        for (int j = 0; j < WIDTH; j++) {
+    for (int i = 0; i < MAP_ROW_COUNT; i++) {
+        for (int j = 0; j < MAP_COL_COUNT; j++) {
             if (Field[i][j].isMine_)
                 cout << SYMBOL_MINE << " ";
             else
@@ -38,14 +38,15 @@ void printMap() {
 void generateMines() {
     srand(time(NULL));
 
-    const int desiredBombCount = HEIGHT * WIDTH * Difficulty.HARD_;
+    const int desiredBombCount =
+        MAP_ROW_COUNT * MAP_COL_COUNT * Difficulty.HARD_;
     auto bombCounter = 0;
 
     while (true)
-        for (int i = 0; i < HEIGHT; i++)
-            for (int j = 0; j < WIDTH; j++) {
+        for (int i = 0; i < MAP_ROW_COUNT; i++)
+            for (int j = 0; j < MAP_COL_COUNT; j++) {
+
                 auto randomNum = (rand() % 100);
-                // cout << randomNum << endl;
 
                 if (!Field[i][j].isMine_ && (randomNum <= 2)) {
                     Field[i][j].isMine_ = true;
@@ -58,14 +59,17 @@ void generateMines() {
             }
 }
 
-void generateMineCounts() {
-    for (int i = 0; i < HEIGHT; i++)
-        for (int j = 0; j < WIDTH; j++)
+void SetupMap() {
+    for (int i = 0; i < MAP_ROW_COUNT; i++)
+        for (int j = 0; j < MAP_COL_COUNT; j++) {
+            Field[i][j].createButton(i, j); // Create "button_" Rectangles
+
             countMines(i, j);
+        }
 }
 
 void generateMap() {
     generateMines();
-    generateMineCounts();
+    SetupMap();
     printMap();
 }
