@@ -18,15 +18,11 @@ void renderMap() {
         for (int j = 0; j < MAP_COL_COUNT; j++) {
             const auto [x, y, width, height] = Field[i][j].button_;
 
-            if (!Field[i][j].isRevealed_) {
-
-                DrawRectangle(
-                    x, y, width, height,
-                    Field[i][j].getColorByMineCount()); // TODO Make Field[]
-                                                        // contain Rectangle
-                continue;
-            }
-
+            if (!Field[i][j].isRevealed_)
+                DrawRectangle(x, y, width, height, GRAY);
+            else
+                DrawRectangle(x, y, width, height,
+                              Field[i][j].getColorByMineCount());
             // else show count number
         }
         // cout << endl;
